@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="h2">24sp</dimen>
+    <dimen name="margin_horizontal">20dp</dimen>
+    <dimen name="margin_vertical">18dp</dimen>
+    <dimen name="subtitle">16sp</dimen>
+</resources>

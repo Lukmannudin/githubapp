@@ -1,0 +1,24 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.SearchView">
+        <item name="android:background">@drawable/searchedittext</item>
+        <item name="android:drawableStart">@drawable/icon_search</item>
+        <item name="android:drawablePadding">@dimen/margin_horizontal</item>
+        <item name="android:paddingStart">@dimen/margin_horizontal</item>
+        <item name="android:paddingEnd">@dimen/margin_horizontal</item>
+        <item name="android:hint">@string/search_github_users</item>
+        <item name="android:textColorHint">@color/colorAccentSecondary</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+</resources>
