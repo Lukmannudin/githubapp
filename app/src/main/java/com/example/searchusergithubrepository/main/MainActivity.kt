@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.searchusergithubrepository.CardAdapter
 import com.example.searchusergithubrepository.R
 import com.example.searchusergithubrepository.data.User
 import com.example.searchusergithubrepository.viewmodelfactory.UserViewModelFactory

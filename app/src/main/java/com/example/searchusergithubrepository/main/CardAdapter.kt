@@ -1,4 +1,4 @@
-package com.example.searchusergithubrepository
+package com.example.searchusergithubrepository.main
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.searchusergithubrepository.R
+import com.example.searchusergithubrepository.USERDATA
 import com.example.searchusergithubrepository.data.User
 import com.example.searchusergithubrepository.main.userdetail.UserDetailActivity
 import com.facebook.drawee.view.SimpleDraweeView
@@ -27,7 +29,6 @@ class CardAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(users[position])
         holder.card.setOnClickListener {
-            Timber.d("item diclick")
             val intent = Intent(it.context, UserDetailActivity::class.java)
             intent.putExtra(USERDATA, users[position])
             it.context.startActivity(intent)
