@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setSearchView() {
         search.setOnEditorActionListener { view, i, keyEvent ->
-            if (i == EditorInfo.IME_ACTION_DONE) {
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
                 if (!view.text.isBlank()) {
                     adapter.users.clear()
                     viewModel.search(view.text.toString(), currentPage)

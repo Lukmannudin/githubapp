@@ -11,6 +11,7 @@ import com.example.searchusergithubrepository.R
 import com.example.searchusergithubrepository.USERDATA
 import com.example.searchusergithubrepository.data.User
 import com.example.searchusergithubrepository.main.userdetail.UserDetailActivity
+import com.facebook.drawee.drawable.ProgressBarDrawable
 import com.facebook.drawee.view.SimpleDraweeView
 import timber.log.Timber
 
@@ -45,6 +46,7 @@ class CardAdapter(
         val card: CardView = itemView.findViewById(R.id.card)
 
         fun bindItem(user: User) {
+            thumbnail.hierarchy.setProgressBarImage(ProgressBarDrawable())
             thumbnail.setImageURI(user.avatarUrl)
             username.text = user.login
         }
