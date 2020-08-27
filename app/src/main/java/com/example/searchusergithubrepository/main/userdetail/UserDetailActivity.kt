@@ -2,8 +2,6 @@ package com.example.searchusergithubrepository.main.userdetail
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -44,11 +42,11 @@ class UserDetailActivity : AppCompatActivity() {
         super.onStart()
         setUpObservation()
         viewModel.refreshUser(user.login)
-
+        viewModel.refreshRepos(user.login)
     }
 
     private fun setUpObservation() {
-        viewModel.viewState.observe(this, { state ->
+        viewModel.userViewState.observe(this, { state ->
             when (state) {
                 is UserDetailViewModel.UserDetailState.loading -> {
                     showLoading(true)
@@ -58,6 +56,25 @@ class UserDetailActivity : AppCompatActivity() {
                     refreshUserView(state.user)
                 }
                 is UserDetailViewModel.UserDetailState.UserLoadFailure -> {
+                    showLoading(false)
+                    Toast.makeText(this, "Cannot Connect to Server", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        viewModel.repoViewState.observe(this, { state ->
+            when (state) {
+                is UserDetailViewModel.RepoDetailState.loading -> {
+                    showLoading(true)
+                }
+                is UserDetailViewModel.RepoDetailState.RepoLoaded -> {
+                    showLoading(false)
+//                    refreshUserView(state.repos)
+                    if (state.repos.isNotEmpty()){
+                        Timber.d("ada datanya: ${state.repos[0].name}")
+                    }
+                }
+                is UserDetailViewModel.RepoDetailState.RepoLoadFailure -> {
                     showLoading(false)
                     Toast.makeText(this, "Cannot Connect to Server", Toast.LENGTH_SHORT).show()
                 }
