@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.searchusergithubrepository.CardAdapter
 import com.example.searchusergithubrepository.R
 import com.example.searchusergithubrepository.data.User
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: CardAdapter
+    var currentPage = 0
 
     private val viewModel: MainViewModel by viewModels {
         UserViewModelFactory()
@@ -81,12 +83,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showNotFound() {
+        adapter.users.clear()
+        showListUsers(mutableListOf())
         home_jumbotron.setImageResource(R.drawable.icon_notfound)
         home_description.text = getString(R.string.sorry_user_not_found)
     }
 
     private fun showLimitedAccess() {
-        showListUsers(mutableListOf())
+        adapter.users.clear()
         home_jumbotron.setImageResource(R.drawable.icon_sad)
         home_description.text = getString(R.string.limit_access_reached)
     }
@@ -97,7 +101,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showListUsers(users: List<User>) {
-        adapter.users.clear()
         adapter.users.addAll(users)
         adapter.notifyDataSetChanged()
     }
@@ -109,16 +112,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUserRecyclerView() {
-        rv_users.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+
+        rv_users.layoutManager = layoutManager
         rv_users.adapter = adapter
         rv_users.addItemDecoration(RecyclerViewItemDecoration(this, 28f))
+
+        val scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
+
+                if (lastVisibleItemPosition == adapter.users.size - 1) {
+                    viewModel.search(search.text.toString(), currentPage++)
+                }
+            }
+        }
+
+        rv_users.addOnScrollListener(scrollListener)
+
+
     }
 
     private fun setSearchView() {
         search.setOnEditorActionListener { view, i, keyEvent ->
             if (i == EditorInfo.IME_ACTION_DONE) {
                 if (!view.text.isBlank()) {
-                    viewModel.search(view.text.toString())
+                    adapter.users.clear()
+                    viewModel.search(view.text.toString(), currentPage)
                 }
                 return@setOnEditorActionListener true
             }

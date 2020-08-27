@@ -4,5 +4,5 @@ import com.example.searchusergithubrepository.data.Result
 import com.example.searchusergithubrepository.data.User
 
 interface UserRepositoryDataSource {
-    suspend fun search(searchWord: String): Result<List<User>>
+    suspend fun search(searchWord: String, page: Int): Result<List<User>>
 }

@@ -18,9 +18,9 @@ class MainViewModel(
     private val _viewState = MutableLiveData<MainViewState>()
     val viewState: LiveData<MainViewState> = _viewState
 
-    fun search(searchWord: String) {
+    fun search(searchWord: String, page: Int) {
         viewModelScope.launch {
-            val users = userRepository.search(searchWord)
+            val users = userRepository.search(searchWord, page)
             users.collect { tipsResponse ->
                 when (tipsResponse) {
                     is Result.Loading -> {

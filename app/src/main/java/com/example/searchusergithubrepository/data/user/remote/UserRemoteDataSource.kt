@@ -6,11 +6,11 @@ import com.example.searchusergithubrepository.data.User
 import com.example.searchusergithubrepository.data.user.UserRepositoryDataSource
 
 class UserRemoteDataSource : UserRepositoryDataSource {
-    override suspend fun search(searchWord: String): Result<List<User>> {
+    override suspend fun search(searchWord: String, page: Int): Result<List<User>> {
         val usersRemote: MutableList<UserRemote> = mutableListOf()
         try {
 
-            val response = RetrofitFactory.USER_API.search(searchWord)
+            val response = RetrofitFactory.USER_API.search(searchWord, page)
             usersRemote.addAll(response.body()?.items!!)
             if (!response.isSuccessful) {
                 return Result.Error(Exception("Get data users from server failed"))

@@ -5,5 +5,5 @@ import com.example.searchusergithubrepository.data.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepositoryContract {
-    suspend fun search(searchWord: String): Flow<Result<List<User>>>
+    suspend fun search(searchWord: String, page: Int): Flow<Result<List<User>>>
 }
