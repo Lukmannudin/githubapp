@@ -12,33 +12,36 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val userRepository: UserRepository
-) : ViewModel(){
+) : ViewModel() {
 
-    private val _users =  MutableLiveData<List<User>>()
-    val users: LiveData<List<User>> = _users
 
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _loading
+    private val _viewState = MutableLiveData<MainViewState>()
+    val viewState: LiveData<MainViewState> = _viewState
 
-    fun search(searchWord: String){
-        _loading.value = true
-
+    fun search(searchWord: String) {
         viewModelScope.launch {
             val users = userRepository.search(searchWord)
-            users.collect {tipsResponse ->
-                when (tipsResponse){
+            users.collect { tipsResponse ->
+                when (tipsResponse) {
                     is Result.Loading -> {
-                        _loading.value = true
+                        _viewState.value = MainViewState.Loading
                     }
                     is Result.Error -> {
-                        _loading.value = false
+                        _viewState.value = MainViewState.UserLoadFailure
                     }
                     is Result.Success -> {
-                        _loading.value = false
-                        _users.value = tipsResponse.data
+                        _viewState.value = MainViewState.UsersLoaded(tipsResponse.data)
                     }
                 }
             }
         }
+    }
+
+    sealed class MainViewState {
+        object Loading : MainViewState()
+
+        data class UsersLoaded(val users: List<User>) : MainViewState()
+
+        object UserLoadFailure : MainViewState()
     }
 }

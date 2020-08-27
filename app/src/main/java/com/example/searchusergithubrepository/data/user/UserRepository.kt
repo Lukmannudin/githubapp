@@ -4,6 +4,7 @@ import com.example.searchusergithubrepository.data.Result
 import com.example.searchusergithubrepository.data.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 
 class UserRepository(
     private val userRemoteDataSource: UserRepositoryDataSource,

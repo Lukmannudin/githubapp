@@ -31,7 +31,6 @@ class CardAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val thumbnail: SimpleDraweeView = itemView.findViewById(R.id.thumbnail_user)
         val username: TextView = itemView.findViewById(R.id.github_user_name)
-        val description: TextView = itemView.findViewById(R.id.github_user_description)
 
         fun bindItem(user: User) {
             thumbnail.setImageURI(user.avatarUrl)

@@ -1,13 +1,13 @@
-package com.example.searchusergithubrepository;
+package com.example.searchusergithubrepository
 
-import android.app.Application;
+import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
+import timber.log.Timber
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-
-public class MyApplication extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Fresco.initialize(this);
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+        Fresco.initialize(this)
     }
 }
