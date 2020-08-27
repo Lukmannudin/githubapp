@@ -132,7 +132,6 @@ class MainActivity : AppCompatActivity() {
 
         rv_users.addOnScrollListener(scrollListener)
 
-
     }
 
     private fun setSearchView() {

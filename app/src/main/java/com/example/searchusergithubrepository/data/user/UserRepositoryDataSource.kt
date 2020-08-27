@@ -5,4 +5,6 @@ import com.example.searchusergithubrepository.data.User
 
 interface UserRepositoryDataSource {
     suspend fun search(searchWord: String, page: Int): Result<List<User>>
+
+    suspend fun getUser(username: String): Result<User>
 }

@@ -5,4 +5,6 @@
     <string name="limit_access_reached">limit access reached</string>
     <string name="sorry_user_not_found">Sorry, user not found</string>
     <string name="letsearch">let\'s find the person you want to know</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
 </resources>

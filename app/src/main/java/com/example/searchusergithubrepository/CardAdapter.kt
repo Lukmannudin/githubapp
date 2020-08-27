@@ -1,12 +1,16 @@
 package com.example.searchusergithubrepository
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.searchusergithubrepository.data.User
+import com.example.searchusergithubrepository.main.userdetail.UserDetailActivity
 import com.facebook.drawee.view.SimpleDraweeView
+import timber.log.Timber
 
 class CardAdapter(
     var users: MutableList<User> = mutableListOf()
@@ -22,6 +26,12 @@ class CardAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(users[position])
+        holder.card.setOnClickListener {
+            Timber.d("item diclick")
+            val intent = Intent(it.context, UserDetailActivity::class.java)
+            intent.putExtra(USERDATA, users[position])
+            it.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -29,8 +39,9 @@ class CardAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val thumbnail: SimpleDraweeView = itemView.findViewById(R.id.thumbnail_user)
-        val username: TextView = itemView.findViewById(R.id.github_user_name)
+        private val thumbnail: SimpleDraweeView = itemView.findViewById(R.id.thumbnail_user)
+        private val username: TextView = itemView.findViewById(R.id.github_user_name)
+        val card: CardView = itemView.findViewById(R.id.card)
 
         fun bindItem(user: User) {
             thumbnail.setImageURI(user.avatarUrl)

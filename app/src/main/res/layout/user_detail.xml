@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/userDetail_swipeRefresh"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/userDetail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/userDetail_thumbnail"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userDetail_toolbar"
+            app:roundedCornerRadius="90dp" />
+
+        <TextView
+            android:id="@+id/userDetail_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/userDetail_thumbnail" />
+
+        <TextView
+            android:id="@+id/userDetail_followinglabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:text="@string/following"
+            android:textSize="@dimen/h2"
+            app:layout_constraintEnd_toStartOf="@id/userDetail_followerlabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userDetail_bio" />
+
+        <TextView
+            android:id="@+id/userDetail_followerlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:text="@string/followers"
+            android:textSize="@dimen/h2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/userDetail_followinglabel"
+            app:layout_constraintTop_toBottomOf="@id/userDetail_bio" />
+
+        <TextView
+            android:id="@+id/userDetail_following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="102"
+            android:textSize="@dimen/subtitle"
+            app:layout_constraintEnd_toEndOf="@id/userDetail_followinglabel"
+            app:layout_constraintStart_toStartOf="@id/userDetail_followinglabel"
+            app:layout_constraintTop_toBottomOf="@id/userDetail_followinglabel" />
+
+        <TextView
+            android:id="@+id/userDetail_followers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="102"
+            android:textSize="@dimen/subtitle"
+            app:layout_constraintEnd_toEndOf="@id/userDetail_followerlabel"
+            app:layout_constraintStart_toStartOf="@id/userDetail_followerlabel"
+            app:layout_constraintTop_toBottomOf="@id/userDetail_followerlabel" />
+
+        <ProgressBar
+            android:id="@+id/userDetail_proggressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+

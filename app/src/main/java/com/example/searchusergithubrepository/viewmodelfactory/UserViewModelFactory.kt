@@ -5,12 +5,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.searchusergithubrepository.data.user.UserRepository
 import com.example.searchusergithubrepository.data.user.remote.UserRemoteDataSource
 import com.example.searchusergithubrepository.main.MainViewModel
+import com.example.searchusergithubrepository.main.userdetail.UserDetailViewModel
 
 class UserViewModelFactory : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
                 isAssignableFrom(MainViewModel::class.java) -> MainViewModel(
+                    userRepository = UserRepository(
+                        userRemoteDataSource = UserRemoteDataSource(),
+                        userLocalDataSource = UserRemoteDataSource()
+                    )
+                )
+
+                isAssignableFrom(UserDetailViewModel::class.java) -> UserDetailViewModel(
                     userRepository = UserRepository(
                         userRemoteDataSource = UserRemoteDataSource(),
                         userLocalDataSource = UserRemoteDataSource()
