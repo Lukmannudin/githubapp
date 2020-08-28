@@ -4,6 +4,7 @@ import com.example.searchusergithubrepository.data.Repo
 import com.example.searchusergithubrepository.data.Result
 import com.example.searchusergithubrepository.data.RetrofitFactory
 import com.example.searchusergithubrepository.data.User
+import com.example.searchusergithubrepository.data.mapper.usermapper.UserMapper
 import com.example.searchusergithubrepository.data.repo.remote.RepoRemote
 import com.example.searchusergithubrepository.data.user.UserRepositoryDataSource
 
@@ -26,15 +27,14 @@ class UserRemoteDataSource : UserRepositoryDataSource {
         }
 
         return Result.Success(
-            mapToUsers(usersRemote)
+            UserMapper.usersRemoteToUsers(usersRemote)
         )
     }
 
     override suspend fun getUser(username: String): Result<User> {
         return try {
             val response = RetrofitFactory.USER_API.getUser(username)
-            val user = mapToUser(response.body()!!)
-
+            val user = UserMapper.userRemoteToUser(response.body()!!)
             Result.Success(user)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -60,76 +60,9 @@ class UserRemoteDataSource : UserRepositoryDataSource {
         }
 
         return Result.Success(
-            mapToRepos(repoRemote)
+            UserMapper.userRemoteReposToUserRepos(repoRemote)
         )
     }
 
 
-    private fun mapToRepos(reposRemote: List<RepoRemote>):List<Repo>{
-        val repos = mutableListOf<Repo>()
-        reposRemote.forEach {
-            repos.add(
-                mapToRepo(it)
-            )
-        }
-        return repos
-    }
-
-    private fun mapToRepo(repoRemote: RepoRemote): Repo {
-        val language = repoRemote.language ?: ""
-        val description = repoRemote.description ?: ""
-        return Repo(
-            repoRemote.stargazersCount!!,
-            language,
-            repoRemote.subscribersUrl!!,
-            repoRemote.releasesUrl!!,
-            repoRemote.svnUrl!!,
-            repoRemote.id!!,
-            repoRemote.name!!,
-            repoRemote.jsonMemberPrivate!!,
-            description,
-            repoRemote.createdAt!!,
-            repoRemote.fullName!!
-        )
-    }
-
-
-    private fun mapToUser(userRemote: UserRemote): User {
-        val following = userRemote.following ?: -1
-        val followers = userRemote.followers ?: -1
-
-        return User(
-            userRemote.gistsUrl!!,
-            userRemote.reposUrl!!,
-            userRemote.followingUrl!!,
-            userRemote.starredUrl!!,
-            userRemote.login!!,
-            userRemote.followersUrl!!,
-            userRemote.type!!,
-            userRemote.url!!,
-            userRemote.subscriptionsUrl!!,
-            -1.0,
-            userRemote.receivedEventsUrl!!,
-            userRemote.avatarUrl!!,
-            userRemote.eventsUrl!!,
-            userRemote.htmlUrl!!,
-            userRemote.siteAdmin!!,
-            userRemote.id!!,
-            userRemote.gravatarId!!,
-            userRemote.nodeId!!,
-            userRemote.organizationsUrl!!,
-            following,
-            followers
-        )
-    }
-
-    private fun mapToUsers(userRemote: List<UserRemote>): List<User> {
-        val users = mutableListOf<User>()
-        userRemote.forEach {
-            users.add(
-                mapToUser(it)
-            )
-        }
-        return users
-    }
 }
