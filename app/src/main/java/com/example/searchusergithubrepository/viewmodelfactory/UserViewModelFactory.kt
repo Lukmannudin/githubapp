@@ -14,6 +14,7 @@ class UserViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                 isAssignableFrom(MainViewModel::class.java) -> MainViewModel(
                     userRepository = UserRepository(
                         userRemoteDataSource = UserRemoteDataSource(),
+                        //temporary access to remote for local access
                         userLocalDataSource = UserRemoteDataSource()
                     )
                 )
@@ -21,6 +22,7 @@ class UserViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                 isAssignableFrom(UserDetailViewModel::class.java) -> UserDetailViewModel(
                     userRepository = UserRepository(
                         userRemoteDataSource = UserRemoteDataSource(),
+                        //temporary access to remote for local access
                         userLocalDataSource = UserRemoteDataSource()
                     )
                 )

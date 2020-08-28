@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">searchUserGithubRepository</string>
+    <string name="app_name">GithubSearch</string>
     <string name="welcome">Welcome</string>
     <string name="search_github_users">Search Github Users</string>
     <string name="limit_access_reached">limit access reached</string>

@@ -39,6 +39,7 @@ class UserDetailActivity : AppCompatActivity() {
 
         userDetail_swipeRefresh.setOnRefreshListener {
             viewModel.refreshUser(user.login)
+            viewModel.refreshRepos(user.login)
         }
 
         adapter = RepoCardAdapter()
